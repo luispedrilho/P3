@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>P³ Performance — Prevenir. Preparar. Performar.</title>
+    <meta
+      name="description"
+      content="Preparação física baseada em evidência: avaliação, planejamento, controle de carga e acompanhamento para atletas de areia e quadra."
+    />
+    <style>
+      :root{
+        --bg: #0b0c10;
+        --card: rgba(255,255,255,.06);
+        --card2: rgba(255,255,255,.09);
+        --text: rgba(255,255,255,.9);
+        --muted: rgba(255,255,255,.7);
+        --line: rgba(255,255,255,.12);
+        --brand: #39d353;        /* verde */
+        --brand2:#22c55e;
+        --shadow: 0 18px 50px rgba(0,0,0,.45);
+        --radius: 18px;
+        --radius2: 26px;
+        --max: 1120px;
+      }
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        margin:0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        color: var(--text);
+        background:
+          radial-gradient(900px 500px at 20% 10%, rgba(57,211,83,.18), transparent 60%),
+          radial-gradient(700px 420px at 80% 10%, rgba(34,197,94,.12), transparent 55%),
+          linear-gradient(180deg, #07080b 0%, var(--bg) 35%, #07080b 100%);
+      }
+
+      a{color:inherit}
+      .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+      .nav{
+        position:sticky; top:0; z-index:50;
+        backdrop-filter: blur(10px);
+        background: rgba(7,8,11,.55);
+        border-bottom: 1px solid var(--line);
+      }
+      .navin{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 0}
+      .brand{
+        display:flex; align-items:center; gap:10px; min-width: 210px;
+      }
+      .logo{
+        width:38px; height:38px; border-radius:12px;
+        background: linear-gradient(135deg, rgba(57,211,83,.9), rgba(255,255,255,.08));
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
+      }
+      .brand h1{font-size:14px; margin:0; letter-spacing:.08em; text-transform:uppercase}
+      .brand small{display:block; color:var(--muted); font-size:12px; letter-spacing:.02em}
+      .links{
+        display:flex; gap:14px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
+      }
+      .links a{
+        text-decoration:none; color: var(--muted);
+        font-size:13px; padding:8px 10px; border-radius:12px;
+      }
+      .links a:hover{color: var(--text); background: rgba(255,255,255,.06)}
+      .btn{
+        border:0; cursor:pointer; text-decoration:none;
+        display:inline-flex; align-items:center; justify-content:center; gap:10px;
+        padding:12px 14px; border-radius: 14px;
+        background: linear-gradient(135deg, var(--brand), var(--brand2));
+        color:#07110a; font-weight:800; letter-spacing:.02em;
+        box-shadow: 0 10px 25px rgba(57,211,83,.25);
+        transition: transform .12s ease, filter .12s ease;
+      }
+      .btn:hover{transform: translateY(-1px); filter:saturate(1.05)}
+      .btn:active{transform: translateY(0px) scale(.99)}
+      .btn.ghost{
+        background: transparent;
+        color: var(--text);
+        box-shadow:none;
+        border:1px solid rgba(255,255,255,.18);
+      }
+
+      /* HERO */
+      .hero{
+        position:relative;
+        padding: 56px 0 28px;
+      }
+      .heroGrid{
+        display:grid; grid-template-columns: 1.2fr .8fr; gap: 26px; align-items:stretch;
+      }
+      @media (max-width: 980px){
+        .heroGrid{grid-template-columns: 1fr; }
+      }
+
+      .heroCard{
+        border-radius: var(--radius2);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05)),
+          radial-gradient(700px 380px at 10% 20%, rgba(57,211,83,.18), transparent 55%);
+        border:1px solid rgba(255,255,255,.12);
+        box-shadow: var(--shadow);
+        padding: 28px;
+        overflow:hidden;
+        position:relative;
+      }
+
+      .heroCard:before{
+        content:"";
+        position:absolute; inset:-2px;
+        background:
+          radial-gradient(500px 250px at 80% 20%, rgba(57,211,83,.22), transparent 60%);
+        opacity:.7; pointer-events:none;
+      }
+
+      .kicker{
+        display:inline-flex; align-items:center; gap:10px;
+        padding:8px 12px; border-radius:999px;
+        background: rgba(255,255,255,.06);
+        border:1px solid rgba(255,255,255,.12);
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .dot{width:8px; height:8px; border-radius:99px; background: var(--brand); box-shadow:0 0 0 6px rgba(57,211,83,.14)}
+      .hero h2{
+        margin:14px 0 10px;
+        font-size: clamp(28px, 4.2vw, 46px);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+      .hero p{
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 62ch;
+      }
+      .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
+      .miniRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+      .pill{
+        padding:10px 12px; border-radius: 14px;
+        background: rgba(255,255,255,.06);
+        border:1px solid rgba(255,255,255,.12);
+        color: rgba(255,255,255,.82);
+        font-size: 13px;
+      }
+
+      .sideCard{
+        border-radius: var(--radius2);
+        background:
+          linear-gradient(180deg, rgba(0,0,0,.20), rgba(255,255,255,.04));
+        border:1px solid rgba(255,255,255,.12);
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+      .sideCard h3{margin:0 0 10px; font-size:16px; letter-spacing:.02em}
+      .list{
+        margin:0; padding:0; list-style:none;
+        display:grid; gap:10px;
+      }
+      .list li{
+        display:flex; gap:10px; align-items:flex-start;
+        padding:10px 12px; border-radius: 14px;
+        background: rgba(255,255,255,.05);
+        border:1px solid rgba(255,255,255,.10);
+        color: var(--muted);
+        font-size: 13px;
+        line-height:1.4;
+      }
+      .check{
+        width:18px; height:18px; border-radius:8px;
+        background: rgba(57,211,83,.20);
+        border:1px solid rgba(57,211,83,.35);
+        display:grid; place-items:center;
+        color: var(--brand);
+        flex: 0 0 auto;
+        margin-top:1px;
+      }
+
+      /* SECTIONS */
+      section{padding: 36px 0}
+      .secHead{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:16px}
+      .secHead h3{margin:0; font-size: 22px; letter-spacing:-0.01em}
+      .secHead p{margin:0; color: var(--muted); max-width: 70ch; font-size: 14px; line-height: 1.5}
+      .grid3{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+      .grid2{display:grid; grid-template-columns: repeat(2, 1fr); gap:14px}
+      @media (max-width: 980px){
+        .grid3{grid-template-columns: 1fr}
+        .grid2{grid-template-columns: 1fr}
+      }
+      .card{
+        border-radius: var(--radius);
+        background: var(--card);
+        border:1px solid rgba(255,255,255,.12);
+        padding:16px;
+      }
+      .card strong{display:block; font-size: 15px; margin-bottom:6px}
+      .card p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55}
+      .icon{
+        width:38px; height:38px; border-radius:14px;
+        background: rgba(57,211,83,.12);
+        border:1px solid rgba(57,211,83,.22);
+        display:grid; place-items:center;
+        margin-bottom:10px;
+        color: var(--brand);
+      }
+
+      /* PRICING */
+      .pricing{display:grid; grid-template-columns: repeat(3, 1fr); gap:14px}
+      @media (max-width: 980px){ .pricing{grid-template-columns:1fr} }
+      .priceCard{
+        border-radius: var(--radius2);
+        background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+        border:1px solid rgba(255,255,255,.12);
+        padding:18px;
+        box-shadow: var(--shadow);
+        position:relative;
+        overflow:hidden;
+      }
+      .priceCard.featured{
+        border-color: rgba(57,211,83,.45);
+        background:
+          radial-gradient(650px 320px at 20% 0%, rgba(57,211,83,.20), transparent 55%),
+          linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+      }
+      .badge{
+        position:absolute; top:14px; right:14px;
+        padding:8px 10px; border-radius:999px;
+        background: rgba(57,211,83,.18);
+        border:1px solid rgba(57,211,83,.35);
+        color: var(--brand);
+        font-weight:800; font-size:12px;
+      }
+      .priceTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
+      .priceCard h4{margin:0; font-size:16px}
+      .price{font-size: 34px; font-weight:900; letter-spacing:-0.02em; margin:10px 0 10px}
+      .per{font-size: 14px; color: var(--muted); font-weight:600}
+      .ul{margin:0; padding:0; list-style:none; display:grid; gap:10px}
+      .ul li{color: var(--muted); font-size: 13.5px; line-height:1.4; display:flex; gap:10px}
+      .muted{color: var(--muted)}
+
+      /* FOOTER */
+      footer{padding: 34px 0 60px; border-top:1px solid var(--line); margin-top: 10px}
+      .foot{
+        display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
+      }
+      .foot small{color: var(--muted)}
+      .contactBox{
+        border-radius: var(--radius2);
+        background: rgba(255,255,255,.05);
+        border:1px solid rgba(255,255,255,.12);
+        padding:16px;
+        min-width: 320px;
+      }
+      .contactRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+      .copyBtn{
+        padding:10px 12px;
+        border-radius: 14px;
+        border:1px solid rgba(255,255,255,.18);
+        background: transparent;
+        color: var(--text);
+        cursor:pointer;
+      }
+      .copyBtn:hover{background: rgba(255,255,255,.06)}
+      .hint{font-size: 12px; color: rgba(255,255,255,.55); margin-top: 8px}
+
+      /* small util */
+      .divider{height:1px; background: var(--line); margin: 10px 0 0}
+      .anchor{scroll-margin-top: 78px}
+    </style>
+  </head>
+
+  <body>
+    <!-- CONFIGURAÇÃO RÁPIDA -->
+    <script>
+      // Troque aqui os dados, se precisar:
+      const BRAND = {
+        name: "P³ Performance",
+        tagline: "Prevenir. Preparar. Performar.",
+        city: "Campinas e região",
+        whatsappSofia: "5519997574116",
+        whatsappGabriel: "5519994135636",
+        instaSofia: "sofia_smaia",
+        instaGabriel: "gabriell.ef",
+      };
+    </script>
+
+    <div class="nav">
+      <div class="wrap navin">
+        <div class="brand">
+          <!-- Substitua por um <img src="logo.png" ...> depois, se quiser -->
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>P³ PERFORMANCE</h1>
+            <small>Prevenir • Preparar • Performar</small>
+          </div>
+        </div>
+
+        <div class="links">
+          <a href="#metodo">Metodologia</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#avaliacoes">Avaliações</a>
+          <a href="#planos">Planos</a>
+          <a href="#contato" class="btn">Chamar no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="wrap heroGrid">
+        <div class="heroCard">
+          <span class="kicker"><span class="dot"></span> Preparação física baseada em evidência</span>
+          <h2>Performance com segurança — do jeito certo, do começo ao pico.</h2>
+          <p>
+            A P³ Performance prioriza <b>prevenção de lesões</b>, avaliação antes de prescrever
+            e um plano individualizado para atletas de <b>areia e quadra</b>.
+            Tudo com <b>base científica</b>, reavaliação contínua e controle de carga.
+          </p>
+
+          <div class="heroActions">
+            <a class="btn" id="ctaWhats" href="#contato">Quero um plano pra mim</a>
+            <a class="btn ghost" href="#planos">Ver planos e valores</a>
+          </div>
+
+          <div class="miniRow">
+            <span class="pill">⚡ Atletas amadores e federados (10 a 40 anos)</span>
+            <span class="pill">📍 Campinas e região</span>
+            <span class="pill">🏐 Beach Tennis • Tênis • Futevôlei</span>
+          </div>
+        </div>
+
+        <aside class="sideCard">
+          <h3>O que você ganha (na prática)</h3>
+          <ul class="list">
+            <li><span class="check">✓</span> Treino prescrito após avaliação inicial + reavaliações</li>
+            <li><span class="check">✓</span> Periodização inteligente (base → força → potência → pico)</li>
+            <li><span class="check">✓</span> Controle de carga com métricas simples (sono/estresse, PSE, PSR)</li>
+            <li><span class="check">✓</span> Suporte e ajuste constante conforme evolução</li>
+          </ul>
+          <div class="divider"></div>
+          <p class="muted" style="margin:12px 0 0; font-size:13px; line-height:1.5">
+            Ideal pra quem quer <b>melhorar desempenho</b> sem “pagar o preço” com lesões e interrupções.
+          </p>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section id="metodo" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Metodologia P³</h3>
+              <p>
+                Prevenção primeiro, performance depois. Avaliar antes de prescrever e evoluir com reavaliações.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="card">
+              <div class="icon">🛡️</div>
+              <strong>Prevenção</strong>
+              <p>Construímos desempenho de forma saudável, reduzindo risco de lesão e melhorando consistência.</p>
+            </div>
+            <div class="card">
+              <div class="icon">📚</div>
+              <strong>Base científica</strong>
+              <p>Trabalho guiado por evidências e atualização constante — nada de “achismo”.</p>
+            </div>
+            <div class="card">
+              <div class="icon">🧪</div>
+              <strong>Avaliar → Prescrever</strong>
+              <p>Avaliação inicial (anamnese) e reavaliações para entender evolução e ajustar o plano.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sobre" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Sobre a equipe</h3>
+              <p>Preparadores físicos com atuação em esportes de areia e quadra, com experiência em equipes e mentoria.</p>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <strong>Gabriel Fornazieri</strong>
+              <p class="muted">
+                Formado em Educação Física (PUC Campinas). Pós-graduando em Preparação Física (UNIGUAÇU).
+                Preparador físico (beach tennis juvenil), atletas amadores de futevôlei e professor/atleta.
+              </p>
+            </div>
+            <div class="card">
+              <strong>Sofia Maia</strong>
+              <p class="muted">
+                Educação Física (PUC Campinas). Experiência em preparação física no tênis, mentoria (CBT)
+                e coordenação de professores em escola de futebol.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicos" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Nossos serviços</h3>
+              <p>Escolha o modelo ideal: consultoria online, acompanhamento presencial ou avaliação avulsa completa.</p>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="card">
+              <div class="icon">💻</div>
+              <strong>Consultoria online</strong>
+              <p>Após avaliação presencial, você recebe um planejamento detalhado e individualizado para seguir em autonomia, com suporte online.</p>
+            </div>
+            <div class="card">
+              <div class="icon">🏋️</div>
+              <strong>Presencial</strong>
+              <p>Acompanhamento presencial com atenção individualizada, garantindo execução correta e progresso consistente.</p>
+            </div>
+            <div class="card">
+              <div class="icon">📏</div>
+              <strong>Avaliação</strong>
+              <p>Serviço avulso com um pacote de avaliações das capacidades físicas mais importantes da sua modalidade.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contexto" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Contexto de atuação</h3>
+              <p>Atendimento para diversos esportes (areia e quadra), atletas amadores e federados.</p>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="card">
+              <strong>Modalidades</strong>
+              <p>Beach Tennis, Tênis, Futevôlei e outras modalidades em areia/quadra.</p>
+            </div>
+            <div class="card">
+              <strong>Perfil</strong>
+              <p>Atletas entre 10 e 40 anos — do iniciante ao competitivo.</p>
+            </div>
+            <div class="card">
+              <strong>Região</strong>
+              <p>Campinas e região.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="avaliacoes" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Avaliações que fazemos</h3>
+              <p>O que é medido vira plano. O que é acompanhado vira resultado (com segurança).</p>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div class="card"><strong>01 • Mudança de direção</strong><p>Illinois, Spider Test, Quadrado.</p></div>
+            <div class="card"><strong>02 • Velocidade</strong><p>Teste 5m e 10m.</p></div>
+            <div class="card"><strong>03 • Potência MMII</strong><p>Single Hop Test, Counter Movement Jump.</p></div>
+            <div class="card"><strong>04 • Potência MMSS</strong><p>SMBT.</p></div>
+            <div class="card"><strong>05 • Força máxima</strong><p>1RM dos levantamentos básicos.</p></div>
+            <div class="card"><strong>06 • Resistência aeróbica</strong><p>Yo-Yo test, RAST, Hit and Turn.</p></div>
+            <div class="card"><strong>07 • Flexibilidade</strong><p>Thomas, Isquiotibial, Lunge, Rot. ext/int ombro.</p></div>
+            <div class="card"><strong>08 • Tempo de reação</strong><p>Teste da régua.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="planejamento" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Planejamento e controle</h3>
+              <p>Usamos periodização tradicional e ondulatória — com transição inteligente conforme a temporada e o atleta.</p>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <strong>Periodização</strong>
+              <p>
+                <b>Pré-temporada:</b> base com modelo tradicional (linear) para construir capacidade.<br/>
+                <b>Temporada/competição:</b> transição para modelo ondulatório (variação de estímulos).<br/>
+                <b>Personalização:</b> ajustes constantes conforme necessidade individual.
+              </p>
+            </div>
+            <div class="card">
+              <strong>Controle de carga</strong>
+              <p>
+                Monitoramos variáveis internas com escalas simples:
+                <b>PSR</b> (recuperação 0–10), <b>sono & estresse</b> (escala própria) e <b>PSE</b> (Borg 0–10),
+                para adaptar o treino do dia e manter segurança + performance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projetos" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Nossos projetos</h3>
+              <p>Exemplos de perfis atendidos (use isso como “prova social” na conversa com o cliente).</p>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <strong>Casos e atletas</strong>
+              <p>
+                • Lavínia Villaboim — tênis federada (COSAT), 13 anos<br/>
+                • Felipe Fogace — beach tennis federado (nível B), 15 anos<br/>
+                • Nicolas Mendes — futevôlei (regionais, iniciante), 25 anos<br/>
+                • Matheus Bernardes — futevôlei (regionais, iniciante), 25 anos
+              </p>
+            </div>
+            <div class="card">
+              <strong>Como isso vira resultado</strong>
+              <p>
+                Ajuste de cargas + progressão de capacidades por fase (base/força/potência),
+                com reavaliação para provar evolução e evitar “estouro” em semanas de pico.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="planos" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Planos e valores</h3>
+              <p>A avaliação inicial e a cada 6 meses está inclusa em todos os planos. Para necessidades específicas, é só chamar.</p>
+            </div>
+          </div>
+
+          <div class="pricing">
+            <div class="priceCard">
+              <div class="priceTop">
+                <h4>Consultoria Online</h4>
+              </div>
+              <div class="price">R$ 249,90 <span class="per">/mês</span></div>
+              <ul class="ul">
+                <li><span class="check">✓</span> Avaliação física completa inicial + a cada 6 meses</li>
+                <li><span class="check">✓</span> Planejamento individualizado</li>
+                <li><span class="check">✓</span> Suporte online</li>
+              </ul>
+              <div style="margin-top:14px">
+                <a class="btn" id="buyOnline" href="#contato">Quero esse plano</a>
+              </div>
+            </div>
+
+            <div class="priceCard featured">
+              <span class="badge">Mais escolhido</span>
+              <div class="priceTop">
+                <h4>Plano Standard</h4>
+              </div>
+              <div class="price">R$ 449,90 <span class="per">/mês</span></div>
+              <ul class="ul">
+                <li><span class="check">✓</span> 1x por semana presencial</li>
+                <li><span class="check">✓</span> Avaliação completa + controle de carga</li>
+                <li><span class="check">✓</span> Atenção individualizada na execução</li>
+              </ul>
+              <div style="margin-top:14px">
+                <a class="btn" id="buyStandard" href="#contato">Quero o Standard</a>
+              </div>
+            </div>
+
+            <div class="priceCard">
+              <div class="priceTop">
+                <h4>Plano Premium</h4>
+              </div>
+              <div class="price">R$ 809,90 <span class="per">/mês</span></div>
+              <ul class="ul">
+                <li><span class="check">✓</span> 2x por semana presencial</li>
+                <li><span class="check">✓</span> Avaliação completa + controle de carga</li>
+                <li><span class="check">✓</span> Acompanhamento mais próximo e ajustes rápidos</li>
+              </ul>
+              <div style="margin-top:14px">
+                <a class="btn" id="buyPremium" href="#contato">Quero o Premium</a>
+              </div>
+            </div>
+          </div>
+
+          <p class="hint" style="margin-top:10px">
+            * Para outros tipos de plano, entre em contato.
+          </p>
+        </div>
+      </section>
+
+      <section id="contato" class="anchor">
+        <div class="wrap">
+          <div class="secHead">
+            <div>
+              <h3>Se interessou? Chame a gente.</h3>
+              <p>Atendimento rápido no WhatsApp — já com mensagem pronta pra facilitar.</p>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="card">
+              <strong>WhatsApp (Sofia)</strong>
+              <p class="muted">+55 (19) 99757-4116</p>
+              <div class="contactRow">
+                <a class="btn" id="waSofia" target="_blank" rel="noreferrer">Chamar Sofia</a>
+                <button class="copyBtn" data-copy="+55 (19) 99757-4116">Copiar número</button>
+                <a class="btn ghost" id="igSofia" target="_blank" rel="noreferrer">Instagram</a>
+              </div>
+            </div>
+
+            <div class="card">
+              <strong>WhatsApp (Gabriel)</strong>
+              <p class="muted">+55 (19) 99413-5636</p>
+              <div class="contactRow">
+                <a class="btn" id="waGab" target="_blank" rel="noreferrer">Chamar Gabriel</a>
+                <button class="copyBtn" data-copy="+55 (19) 99413-5636">Copiar número</button>
+                <a class="btn ghost" id="igGab" target="_blank" rel="noreferrer">Instagram</a>
+              </div>
+            </div>
+          </div>
+
+          <p class="hint">
+            Dica: na reunião, clique em “Ver planos e valores” e depois “Quero o Standard” pra conduzir a conversa.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap foot">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px">
+            <div class="logo" aria-hidden="true"></div>
+            <div>
+              <strong>P³ Performance</strong><br />
+              <small>Prevenir. Preparar. Performar.</small>
+            </div>
+          </div>
+          <p class="muted" style="margin:10px 0 0; max-width:65ch">
+            Preparação física para atletas de areia e quadra — avaliação, planejamento, controle de carga e acompanhamento.
+          </p>
+        </div>
+
+        <div class="contactBox">
+          <strong>Quer editar isso em 2 minutos?</strong>
+          <div class="hint">
+            Troque logo/imagens e ajuste textos. A estrutura já está pronta para vender.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function waLink(phone, text){
+        const msg = encodeURIComponent(text);
+        return `https://wa.me/${phone}?text=${msg}`;
+      }
+
+      const msgBase =
+        "Oi! Vim pelo site da P³ Performance. Quero entender qual plano faz mais sentido pra mim. " +
+        "Minha modalidade é: _____. Meu objetivo é: _____. Tenho histórico de lesão? (sim/não): _____. ";
+
+      const waSofia = document.getElementById("waSofia");
+      const waGab = document.getElementById("waGab");
+      const igSofia = document.getElementById("igSofia");
+      const igGab = document.getElementById("igGab");
+
+      waSofia.href = waLink(BRAND.whatsappSofia, msgBase);
+      waGab.href   = waLink(BRAND.whatsappGabriel, msgBase);
+
+      igSofia.href = `https://instagram.com/${BRAND.instaSofia}`;
+      igGab.href   = `https://instagram.com/${BRAND.instaGabriel}`;
+
+      // CTA principal pode apontar para um responsável só (aqui: Sofia)
+      const ctaWhats = document.getElementById("ctaWhats");
+      ctaWhats.href = waSofia.href;
+
+      document.getElementById("buyOnline").href   = waLink(BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Consultoria Online.");
+      document.getElementById("buyStandard").href = waLink(BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Standard (1x/sem presencial).");
+      document.getElementById("buyPremium").href  = waLink(BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Premium (2x/sem presencial).");
+
+      // Copiar número
+      document.querySelectorAll("[data-copy]").forEach(btn=>{
+        btn.addEventListener("click", async ()=>{
+          try{
+            await navigator.clipboard.writeText(btn.getAttribute("data-copy"));
+            const old = btn.textContent;
+            btn.textContent = "Copiado!";
+            setTimeout(()=>btn.textContent = old, 1200);
+          }catch(e){
+            alert("Não consegui copiar automaticamente. Selecione e copie manualmente.");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
