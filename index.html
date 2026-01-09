@@ -1,886 +1,283 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>P³ Performance — Prevenir. Preparar. Performar.</title>
-    <meta
-      name="description"
-      content="Preparação física baseada em evidência: avaliação, planejamento, controle de carga e acompanhamento para atletas de areia e quadra."
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>P³ Performance — Prevenir. Preparar. Performar.</title>
 
-    <style>
-      :root{
-        --text: rgba(255,255,255,.92);
-        --muted: rgba(255,255,255,.72);
-        --line: rgba(255,255,255,.12);
+  <style>
+    :root{
+      --brand:#39d353;
+      --brand2:#22c55e;
+      --bg:#07080b;
+      --card:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --radius:18px;
+      --radius2:26px;
+      --shadow:0 18px 45px rgba(0,0,0,.45);
+    }
 
-        --card: rgba(255,255,255,.06);
-        --brand: #39d353;
-        --brand2:#22c55e;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto;
+      color:var(--text);
+      background:var(--bg);
+      overflow-x:hidden;
+    }
 
-        --shadow: 0 18px 50px rgba(0,0,0,.45);
-        --radius: 18px;
-        --radius2: 26px;
-        --max: 1120px;
+    /* FUNDO COESO */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+        linear-gradient(180deg,#07080b 0%,#0b0e13 45%,#07080b 100%),
+        radial-gradient(1200px 800px at 15% 10%,rgba(57,211,83,.18),transparent 60%),
+        radial-gradient(900px 700px at 85% 20%,rgba(34,197,94,.14),transparent 65%);
+    }
 
-        --navH: 78px;
-      }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:auto;padding:0 18px}
 
-      *{box-sizing:border-box}
-      html,body{height:100%}
+    /* NAV */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(12px);
+      background:rgba(10,12,16,.6);
+      border-bottom:1px solid var(--line);
+    }
+    .navin{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      font-weight:900;
+      letter-spacing:.12em;
+      font-size:14px;
+    }
+    .logo{
+      width:36px;
+      height:36px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--brand),rgba(255,255,255,.1));
+    }
+    .links{display:flex;gap:14px}
+    .links a{font-size:13px;color:var(--muted)}
 
-      body{
-        margin:0;
-        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-        color: var(--text);
-        background: #07080b; /* fallback sólido */
-        overflow-x: hidden;
-      }
+    .btn{
+      padding:12px 16px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#07110a;
+      font-weight:900;
+      box-shadow:0 12px 30px rgba(57,211,83,.25);
+    }
 
-      /* ✅ Fundo novo: contínuo, sem "faixas" visíveis */
-      body::before{
-        content:"";
-        position: fixed;
-        inset: 0;
-        z-index: -2;
-        background:
-          /* base contínua (sem corte) */
-          radial-gradient(1400px 900px at 50% -10%, rgba(255,255,255,.06), transparent 65%),
-          linear-gradient(180deg, #07080b 0%, #0a0c10 35%, #07080b 100%),
+    /* HERO */
+    header{padding:28px 0 20px}
+    .heroGrid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+    }
+    @media(max-width:900px){
+      .heroGrid{grid-template-columns:1fr}
+    }
 
-          /* blobs grandes (bem suaves) */
-          radial-gradient(1200px 900px at 18% 12%, rgba(57,211,83,.16), transparent 62%),
-          radial-gradient(1100px 850px at 84% 8%, rgba(34,197,94,.12), transparent 60%),
-          radial-gradient(900px 700px at 60% 78%, rgba(57,211,83,.10), transparent 62%);
-      }
+    .heroText{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      padding:28px;
+      box-shadow:var(--shadow);
+    }
+    h1{
+      font-size:clamp(30px,4vw,48px);
+      line-height:1.05;
+      margin:10px 0;
+    }
+    .heroText p{
+      color:var(--muted);
+      line-height:1.6;
+    }
 
-      /* ✅ Noise leve pra “colar” o degrade */
-      body::after{
-        content:"";
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        pointer-events:none;
-        opacity: .10;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-        background-size: 220px 220px;
-        mix-blend-mode: overlay;
-      }
+    .bullets{
+      list-style:none;
+      padding:0;
+      margin:16px 0;
+      display:grid;
+      gap:10px;
+    }
+    .bullets li::before{
+      content:"✓ ";
+      color:var(--brand);
+      font-weight:900;
+    }
 
-      a{color:inherit}
-      .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
-      @media (min-width: 980px){ .wrap{ padding: 0 22px; } }
+    /* HERO IMAGE */
+    .heroImg{
+      position:relative;
+      min-height:320px;
+      border-radius:var(--radius2);
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      border:1px solid var(--line);
+      background:
+        url("file_00000000d050720e8ece1ddfd01464b6.png") center/cover no-repeat;
+    }
+    .heroImg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        180deg,
+        rgba(0,0,0,.15),
+        rgba(0,0,0,.65)
+      );
+    }
+    .heroImgContent{
+      position:absolute;
+      bottom:18px;
+      left:18px;
+      right:18px;
+      z-index:2;
+      font-weight:900;
+      letter-spacing:.08em;
+    }
 
-      /* NAV */
-      .nav{
-        position:sticky; top:0; z-index:60;
-        backdrop-filter: blur(10px);
-        background: rgba(10,12,16,.55);
-        border-bottom: 1px solid rgba(255,255,255,.10);
-      }
-      .navin{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0}
-      @media (min-width: 860px){ .navin{ padding: 14px 0; } }
+    /* SEÇÕES */
+    section{padding:36px 0}
+    h2{margin-bottom:10px}
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px;
+    }
 
-      .brand{display:flex; align-items:center; gap:10px; min-width: 210px;}
-      .logo{
-        width:38px; height:38px; border-radius:12px;
-        background: linear-gradient(135deg, rgba(57,211,83,.92), rgba(255,255,255,.08));
-        box-shadow: inset 0 0 0 1px rgba(255,255,255,.16);
-      }
-      .brand h1{font-size:14px; margin:0; letter-spacing:.08em; text-transform:uppercase}
-      .brand small{display:block; color:var(--muted); font-size:12px; letter-spacing:.02em}
+    /* CTA FINAL */
+    .finalCta{
+      background:linear-gradient(135deg,rgba(57,211,83,.2),rgba(255,255,255,.05));
+      border:1px solid var(--line);
+      border-radius:var(--radius2);
+      padding:20px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
 
-      .links{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
-      .links a{
-        text-decoration:none; color: var(--muted);
-        font-size:13px; padding:8px 10px; border-radius:12px;
-      }
-      .links a:hover{color: var(--text); background: rgba(255,255,255,.06)}
+    /* FLOAT CTA */
+    .float{
+      position:fixed;
+      bottom:14px;
+      left:14px;
+      right:14px;
+      display:none;
+      z-index:60;
+    }
+    @media(max-width:860px){
+      .float{display:block}
+    }
+  </style>
+</head>
 
-      .btn{
-        border:0; cursor:pointer; text-decoration:none;
-        display:inline-flex; align-items:center; justify-content:center; gap:10px;
-        padding:12px 14px; border-radius: 14px;
-        background: linear-gradient(135deg, var(--brand), var(--brand2));
-        color:#07110a; font-weight:900; letter-spacing:.02em;
-        box-shadow: 0 10px 25px rgba(57,211,83,.22);
-        transition: transform .12s ease, filter .12s ease;
-        white-space: nowrap;
-      }
-      .btn:hover{transform: translateY(-1px); filter:saturate(1.05)}
-      .btn:active{transform: translateY(0px) scale(.99)}
-      .btn.ghost{
-        background: transparent;
-        color: var(--text);
-        box-shadow:none;
-        border:1px solid rgba(255,255,255,.18);
-        font-weight:800;
-      }
+<body>
 
-      /* Mobile menu */
-      .desktopLinks{ display:flex; }
-      .menuBtn{
-        display:none;
-        border:1px solid rgba(255,255,255,.16);
-        background: rgba(255,255,255,.06);
-        color: var(--text);
-        border-radius: 14px;
-        padding: 10px 12px;
-        font-size: 18px;
-        cursor:pointer;
-        -webkit-tap-highlight-color: transparent;
-      }
-      .mOverlay{
-        position:fixed; inset:0;
-        background: rgba(0,0,0,.55);
-        backdrop-filter: blur(2px);
-        display:none;
-        z-index: 80;
-      }
-      .mDrawer{
-        position:fixed;
-        left:12px; right:12px; top: calc(var(--navH) + 10px);
-        background: rgba(15,16,20,.90);
-        border: 1px solid rgba(255,255,255,.14);
-        border-radius: 18px;
-        box-shadow: var(--shadow);
-        padding: 10px;
-        transform: translateY(-10px);
-        opacity: 0;
-        pointer-events:none;
-        transition: transform .18s ease, opacity .18s ease;
-        z-index: 90;
-      }
-      .mDrawer a{
-        display:block;
-        text-decoration:none;
-        color: var(--muted);
-        padding: 12px 12px;
-        border-radius: 14px;
-      }
-      .mDrawer a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
-      .mDrawer a.btn{ margin-top: 8px; }
-
-      .mOpen .mOverlay{ display:block; }
-      .mOpen .mDrawer{
-        transform: translateY(0px);
-        opacity: 1;
-        pointer-events:auto;
-      }
-      @media (max-width: 860px){
-        .desktopLinks{ display:none; }
-        .menuBtn{ display:inline-flex; align-items:center; justify-content:center; }
-      }
-
-      /* HERO */
-      header.hero{ padding: 28px 0 18px; }
-      .heroGrid{
-        display:grid; grid-template-columns: 1.1fr .9fr;
-        gap: 16px; align-items:stretch;
-      }
-      @media (max-width: 980px){
-        .heroGrid{grid-template-columns: 1fr;}
-      }
-
-      .heroCard{
-        border-radius: var(--radius2);
-        border:1px solid rgba(255,255,255,.12);
-        box-shadow: var(--shadow);
-        padding: 20px;
-        overflow:hidden;
-        position:relative;
-
-        /* ✅ agora o card segue o fundo (menos contraste duro) */
-        background:
-          radial-gradient(800px 500px at 12% 12%, rgba(57,211,83,.16), transparent 60%),
-          linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
-      }
-      @media (min-width: 980px){ .heroCard{ padding: 28px; } }
-
-      .kicker{
-        display:inline-flex; align-items:center; gap:10px;
-        padding:8px 12px; border-radius:999px;
-        background: rgba(255,255,255,.06);
-        border:1px solid rgba(255,255,255,.12);
-        color: var(--muted);
-        font-size: 12px;
-      }
-      .dot{width:8px; height:8px; border-radius:99px; background: var(--brand); box-shadow:0 0 0 6px rgba(57,211,83,.14)}
-
-      .hero h2{
-        margin:14px 0 10px;
-        font-size: clamp(28px, 4.2vw, 46px);
-        line-height: 1.05;
-        letter-spacing: -0.02em;
-      }
-      .hero p{
-        margin: 0 0 18px;
-        color: var(--muted);
-        font-size: 15.5px;
-        line-height: 1.6;
-        max-width: 62ch;
-      }
-
-      .heroActions{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
-      .miniRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
-      .pill{
-        padding:10px 12px; border-radius: 14px;
-        background: rgba(255,255,255,.06);
-        border:1px solid rgba(255,255,255,.12);
-        color: rgba(255,255,255,.82);
-        font-size: 13px;
-      }
-
-      .heroVisual{
-        border-radius: var(--radius2);
-        border:1px solid rgba(255,255,255,.12);
-        box-shadow: var(--shadow);
-        overflow:hidden;
-        position:relative;
-        min-height: 260px;
-        background:
-          radial-gradient(800px 520px at 20% 10%, rgba(57,211,83,.14), transparent 60%),
-          linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.25));
-      }
-      .heroVisual::before{
-        content:"";
-        position:absolute; inset:0;
-        background-image: var(--hero-img, none);
-        background-size: cover;
-        background-position: center;
-        opacity: .92;
-      }
-      .heroVisual::after{
-        content:"";
-        position:absolute; inset:0;
-        background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.58));
-      }
-      .heroVisualInner{
-        position:absolute; inset:0;
-        display:flex; flex-direction:column; justify-content:flex-end;
-        padding: 16px;
-        gap: 10px;
-      }
-      .heroStatRow{display:flex; gap:10px; flex-wrap:wrap;}
-      .stat{
-        padding: 10px 12px;
-        border-radius: 16px;
-        background: rgba(255,255,255,.08);
-        border:1px solid rgba(255,255,255,.16);
-        color: rgba(255,255,255,.86);
-        font-size: 13px;
-        backdrop-filter: blur(6px);
-      }
-      .heroVisualTitle{
-        font-weight:900;
-        font-size: 16px;
-        letter-spacing: .01em;
-      }
-      .heroVisualSub{
-        color: rgba(255,255,255,.72);
-        font-size: 13px;
-        line-height: 1.45;
-        max-width: 52ch;
-      }
-
-      @media (max-width: 520px){
-        .hero h2{ font-size: 30px; }
-        .hero p{ font-size: 15px; }
-        .heroActions a{ width:100%; }
-        .miniRow .pill{ width:100%; }
-        .heroVisual{ min-height: 240px; }
-      }
-
-      /* SECTIONS */
-      section{padding: 26px 0}
-      @media (min-width: 980px){ section{ padding: 34px 0; } }
-
-      .secHead{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; margin-bottom:16px}
-      .secHead h3{margin:0; font-size: 22px; letter-spacing:-0.01em}
-      .secHead p{margin:0; color: var(--muted); max-width: 70ch; font-size: 13.5px; line-height: 1.5}
-      @media (max-width: 980px){
-        .secHead{ flex-direction: column; align-items:flex-start; gap: 8px; }
-      }
-
-      .grid3{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:14px}
-      .grid2{display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px}
-
-      .card{
-        border-radius: var(--radius);
-        background: rgba(255,255,255,.05);
-        border:1px solid rgba(255,255,255,.12);
-        padding:16px;
-      }
-      .card strong{display:block; font-size: 15px; margin-bottom:6px}
-      .card p{margin:0; color: var(--muted); font-size: 13.5px; line-height: 1.55}
-
-      .icon{
-        width:38px; height:38px; border-radius:14px;
-        background: rgba(57,211,83,.12);
-        border:1px solid rgba(57,211,83,.22);
-        display:grid; place-items:center;
-        margin-bottom:10px;
-        color: var(--brand);
-      }
-
-      .divider{height:1px; background: var(--line); margin: 10px 0 0}
-      .anchor{scroll-margin-top: 92px}
-      .muted{color: var(--muted)}
-
-      .quote{
-        border-radius: var(--radius2);
-        background:
-          radial-gradient(900px 420px at 10% 0%, rgba(57,211,83,.12), transparent 65%),
-          rgba(255,255,255,.05);
-        border: 1px solid rgba(255,255,255,.12);
-        padding: 16px;
-      }
-      .quote p{margin: 0 0 10px; color: rgba(255,255,255,.85); line-height: 1.55; font-size: 14px;}
-      .quote small{ color: var(--muted); }
-
-      /* Accordion */
-      .acc{
-        border-radius: var(--radius2);
-        background: rgba(255,255,255,.05);
-        border: 1px solid rgba(255,255,255,.12);
-        overflow:hidden;
-      }
-      .accBtn{
-        width:100%;
-        display:flex; align-items:center; justify-content:space-between;
-        gap:12px;
-        padding: 14px 14px;
-        background: transparent;
-        color: var(--text);
-        border:0;
-        cursor:pointer;
-        font-weight:900;
-        letter-spacing:.01em;
-      }
-      .accBtn span{ color: var(--muted); font-weight:700; font-size: 13px; }
-      .accIcon{
-        width:34px; height:34px;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,.14);
-        background: rgba(255,255,255,.06);
-        display:grid; place-items:center;
-        flex: 0 0 auto;
-      }
-      .accPanel{
-        max-height: 0px;
-        overflow:hidden;
-        transition: max-height .20s ease;
-        border-top: 1px solid rgba(255,255,255,.10);
-      }
-      .accInner{ padding: 14px; }
-
-      @media (min-width: 861px){
-        .accBtn{ display:none; }
-        .accPanel{ max-height: none !important; border-top:0; }
-        .accInner{ padding:0; }
-      }
-
-      /* Pricing */
-      .pricing{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px}
-      .priceCard{
-        border-radius: var(--radius2);
-        background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
-        border:1px solid rgba(255,255,255,.12);
-        padding:16px;
-        box-shadow: var(--shadow);
-        position:relative;
-        overflow:hidden;
-      }
-      .priceCard.featured{
-        border-color: rgba(57,211,83,.45);
-        background:
-          radial-gradient(650px 320px at 20% 0%, rgba(57,211,83,.18), transparent 55%),
-          linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      }
-      .badge{
-        position:absolute; top:14px; right:14px;
-        padding:8px 10px; border-radius:999px;
-        background: rgba(57,211,83,.18);
-        border:1px solid rgba(57,211,83,.35);
-        color: var(--brand);
-        font-weight:900; font-size:12px;
-      }
-      .priceTop{display:flex; align-items:flex-start; justify-content:space-between; gap:10px}
-      .priceCard h4{margin:0; font-size:16px}
-      .price{font-size: 32px; font-weight:950; letter-spacing:-0.02em; margin:10px 0 10px}
-      .per{font-size: 14px; color: var(--muted); font-weight:700}
-      .ul{margin:0; padding:0; list-style:none; display:grid; gap:10px}
-      .ul li{color: var(--muted); font-size: 13.5px; line-height:1.4; display:flex; gap:10px}
-      .ideal{margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.10); color: rgba(255,255,255,.78); font-size: 13px; line-height: 1.45;}
-      @media (max-width: 520px){
-        .price{ font-size: 30px; }
-        .priceCard .btn{ width:100%; }
-      }
-
-      footer{padding: 34px 0 90px; border-top:1px solid rgba(255,255,255,.10); margin-top: 10px}
-      .foot{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;}
-      .contactBox{
-        border-radius: var(--radius2);
-        background: rgba(255,255,255,.05);
-        border:1px solid rgba(255,255,255,.12);
-        padding:16px;
-        width: min(520px, 100%);
-      }
-      .contactRow{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-      .copyBtn{
-        padding:10px 12px;
-        border-radius: 14px;
-        border:1px solid rgba(255,255,255,.18);
-        background: transparent;
-        color: var(--text);
-        cursor:pointer;
-      }
-      .copyBtn:hover{background: rgba(255,255,255,.06)}
-      .hint{font-size: 12px; color: rgba(255,255,255,.55); margin-top: 8px}
-      .contactRow a, .contactRow button{ flex: 1 1 140px; }
-      @media (max-width: 520px){
-        .contactRow a, .contactRow button{ width:100%; flex: 1 1 100%; }
-      }
-
-      .floatingCta{
-        position: fixed;
-        left: 12px; right: 12px; bottom: 12px;
-        display:none;
-        z-index: 70;
-      }
-      .floatingCta .btn{
-        width:100%;
-        border-radius: 18px;
-        padding: 14px 16px;
-        box-shadow: 0 18px 40px rgba(57,211,83,.20);
-      }
-      @media (max-width: 860px){ .floatingCta{ display:block; } }
-      @supports(padding: max(0px)){
-        .floatingCta{ bottom: max(12px, env(safe-area-inset-bottom)); }
-      }
-    </style>
-  </head>
-
-  <body>
-    <script>
-      const BRAND = {
-        whatsappPrimary: "5519997574116",
-        whatsappSofia: "5519997574116",
-        whatsappGabriel: "5519994135636",
-        instaSofia: "sofia_smaia",
-        instaGabriel: "gabriell.ef",
-        heroImageUrl: "" // opcional
-      };
-    </script>
-
-    <div class="nav" id="nav">
-      <div class="wrap navin">
-        <div class="brand">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <h1>P³ PERFORMANCE</h1>
-            <small>Prevenir • Preparar • Performar</small>
-          </div>
-        </div>
-
-        <div class="links desktopLinks">
-          <a href="#metodo">Metodologia</a>
-          <a href="#servicos">Serviços</a>
-          <a href="#avaliacoes">Avaliações</a>
-          <a href="#planos">Planos</a>
-          <a href="#contato" class="btn">Chamar no WhatsApp</a>
-        </div>
-
-        <button class="menuBtn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">☰</button>
-      </div>
+<div class="nav">
+  <div class="wrap navin">
+    <div class="brand">
+      <div class="logo"></div>
+      P³ PERFORMANCE
     </div>
-
-    <div class="mOverlay" id="mOverlay"></div>
-    <div class="mDrawer" id="mDrawer" aria-hidden="true">
-      <a href="#metodo">Metodologia</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#avaliacoes">Avaliações</a>
+    <div class="links">
+      <a href="#metodo">Método</a>
       <a href="#planos">Planos</a>
-      <a href="#contato" class="btn">Chamar no WhatsApp</a>
+      <a href="#contato" class="btn">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="wrap heroGrid">
+    <div class="heroText">
+      <h1>Performance com segurança.<br/>Treino com método.</h1>
+      <p>
+        Preparação física focada em atletas de areia e quadra.
+        Avaliação, planejamento e controle de carga para evoluir
+        sem interrupções por lesão.
+      </p>
+
+      <ul class="bullets">
+        <li>Avaliação antes de prescrever</li>
+        <li>Planejamento individualizado</li>
+        <li>Controle de carga e reavaliações</li>
+      </ul>
+
+      <a class="btn" href="#contato">Quero meu plano</a>
     </div>
 
-    <header class="hero">
-      <div class="wrap heroGrid">
-        <div class="heroCard">
-          <span class="kicker"><span class="dot"></span> Preparação física baseada em evidência</span>
-          <h2>Performance com segurança — do jeito certo, do começo ao pico.</h2>
-          <p>
-            A P³ Performance prioriza <b>prevenção de lesões</b>, avaliação antes de prescrever
-            e um plano individualizado para atletas de <b>areia e quadra</b>.
-            Tudo com <b>base científica</b>, reavaliação contínua e controle de carga.
-          </p>
-
-          <div class="heroActions">
-            <a class="btn" id="ctaWhats" href="#contato">Quero um plano pra mim</a>
-            <a class="btn ghost" href="#planos">Ver planos e valores</a>
-          </div>
-
-          <div class="miniRow">
-            <span class="pill">⚡ Atletas amadores e federados (10 a 40 anos)</span>
-            <span class="pill">📍 Campinas e região</span>
-            <span class="pill">🏐 Beach Tennis • Tênis • Futevôlei</span>
-          </div>
-        </div>
-
-        <aside class="heroVisual" id="heroVisual">
-          <div class="heroVisualInner">
-            <div>
-              <div class="heroVisualTitle">Treino com método. Resultado com consistência.</div>
-              <div class="heroVisualSub">
-                Avaliação → planejamento → execução → reavaliação.
-                O objetivo é evoluir sem interrupções por dor/lesão.
-              </div>
-            </div>
-            <div class="heroStatRow">
-              <div class="stat">✅ Avaliação + reavaliações</div>
-              <div class="stat">✅ Controle de carga</div>
-              <div class="stat">✅ Periodização</div>
-            </div>
-          </div>
-        </aside>
+    <div class="heroImg">
+      <div class="heroImgContent">
+        PREVENIR • PREPARAR • PERFORMAR
       </div>
-    </header>
-
-    <main>
-      <section id="metodo" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Metodologia P³</h3>
-              <p>Prevenção primeiro, performance depois. Avaliar antes de prescrever e evoluir com reavaliações.</p>
-            </div>
-          </div>
-
-          <div class="grid3">
-            <div class="card">
-              <div class="icon">🛡️</div>
-              <strong>Prevenção</strong>
-              <p>Construímos desempenho de forma saudável, reduzindo risco de lesão e melhorando consistência.</p>
-            </div>
-            <div class="card">
-              <div class="icon">📚</div>
-              <strong>Base científica</strong>
-              <p>Trabalho guiado por evidências e atualização constante — nada de “achismo”.</p>
-            </div>
-            <div class="card">
-              <div class="icon">🧪</div>
-              <strong>Avaliar → Prescrever</strong>
-              <p>Avaliação inicial (anamnese) e reavaliações para entender evolução e ajustar o plano.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="servicos" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Nossos serviços</h3>
-              <p>Escolha o modelo ideal: consultoria online, acompanhamento presencial ou avaliação avulsa completa.</p>
-            </div>
-          </div>
-
-          <div class="grid3">
-            <div class="card">
-              <div class="icon">💻</div>
-              <strong>Consultoria online</strong>
-              <p>Após avaliação presencial, você recebe um planejamento detalhado e individualizado para seguir em autonomia, com suporte online.</p>
-            </div>
-            <div class="card">
-              <div class="icon">🏋️</div>
-              <strong>Presencial</strong>
-              <p>Acompanhamento presencial com atenção individualizada, garantindo execução correta e progresso consistente.</p>
-            </div>
-            <div class="card">
-              <div class="icon">📏</div>
-              <strong>Avaliação</strong>
-              <p>Serviço avulso com um pacote de avaliações das capacidades físicas mais importantes da sua modalidade.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="avaliacoes" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Avaliações que fazemos</h3>
-              <p>O que é medido vira plano. O que é acompanhado vira resultado (com segurança).</p>
-            </div>
-          </div>
-
-          <div class="acc" data-acc>
-            <button class="accBtn" type="button" data-acc-btn aria-expanded="false">
-              <div>
-                Ver lista completa de avaliações
-                <div><span>Toque para abrir/fechar</span></div>
-              </div>
-              <div class="accIcon" data-acc-icon>+</div>
-            </button>
-
-            <div class="accPanel" data-acc-panel>
-              <div class="accInner">
-                <div class="grid3">
-                  <div class="card"><strong>01 • Mudança de direção</strong><p>Illinois, Spider Test, Quadrado.</p></div>
-                  <div class="card"><strong>02 • Velocidade</strong><p>Teste 5m e 10m.</p></div>
-                  <div class="card"><strong>03 • Potência MMII</strong><p>Single Hop Test, Counter Movement Jump.</p></div>
-                  <div class="card"><strong>04 • Potência MMSS</strong><p>SMBT.</p></div>
-                  <div class="card"><strong>05 • Força máxima</strong><p>1RM dos levantamentos básicos.</p></div>
-                  <div class="card"><strong>06 • Resistência aeróbica</strong><p>Yo-Yo test, RAST, Hit and Turn.</p></div>
-                  <div class="card"><strong>07 • Flexibilidade</strong><p>Thomas, Isquiotibial, Lunge, Rot. ext/int ombro.</p></div>
-                  <div class="card"><strong>08 • Tempo de reação</strong><p>Teste da régua.</p></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <section id="planos" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Planos e valores</h3>
-              <p>A avaliação inicial e a cada 6 meses está inclusa em todos os planos. Para necessidades específicas, é só chamar.</p>
-            </div>
-          </div>
-
-          <div class="pricing">
-            <div class="priceCard">
-              <div class="priceTop"><h4>Consultoria Online</h4></div>
-              <div class="price">R$ 249,90 <span class="per">/mês</span></div>
-              <ul class="ul">
-                <li>✓ Avaliação completa inicial + a cada 6 meses</li>
-                <li>✓ Planejamento individualizado</li>
-                <li>✓ Suporte online</li>
-              </ul>
-              <div class="ideal"><b>Ideal para:</b> quem quer seguir com autonomia e ter um plano bem estruturado.</div>
-              <div style="margin-top:14px">
-                <a class="btn" id="buyOnline" href="#contato">Quero esse plano</a>
-              </div>
-            </div>
-
-            <div class="priceCard featured">
-              <span class="badge">Mais escolhido</span>
-              <div class="priceTop"><h4>Plano Standard</h4></div>
-              <div class="price">R$ 449,90 <span class="per">/mês</span></div>
-              <ul class="ul">
-                <li>✓ 1x por semana presencial</li>
-                <li>✓ Avaliação + controle de carga</li>
-                <li>✓ Execução correta + ajustes constantes</li>
-              </ul>
-              <div class="ideal"><b>Ideal para:</b> quem quer acompanhamento e consistência com execução impecável.</div>
-              <div style="margin-top:14px">
-                <a class="btn" id="buyStandard" href="#contato">Quero o Standard</a>
-              </div>
-            </div>
-
-            <div class="priceCard">
-              <div class="priceTop"><h4>Plano Premium</h4></div>
-              <div class="price">R$ 809,90 <span class="per">/mês</span></div>
-              <ul class="ul">
-                <li>✓ 2x por semana presencial</li>
-                <li>✓ Avaliação + controle de carga</li>
-                <li>✓ Acompanhamento mais próximo</li>
-              </ul>
-              <div class="ideal"><b>Ideal para:</b> quem compete/treina forte e precisa de ajustes rápidos na semana.</div>
-              <div style="margin-top:14px">
-                <a class="btn" id="buyPremium" href="#contato">Quero o Premium</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contato" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Contato</h3>
-              <p>Atendimento rápido no WhatsApp — já com mensagem pronta.</p>
-            </div>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <strong>WhatsApp (Sofia)</strong>
-              <p class="muted">+55 (19) 99757-4116</p>
-              <div class="contactRow">
-                <a class="btn" id="waSofia" target="_blank" rel="noreferrer">Chamar Sofia</a>
-                <button class="copyBtn" data-copy="+55 (19) 99757-4116">Copiar número</button>
-                <a class="btn ghost" id="igSofia" target="_blank" rel="noreferrer">Instagram</a>
-              </div>
-            </div>
-
-            <div class="card">
-              <strong>WhatsApp (Gabriel)</strong>
-              <p class="muted">+55 (19) 99413-5636</p>
-              <div class="contactRow">
-                <a class="btn" id="waGab" target="_blank" rel="noreferrer">Chamar Gabriel</a>
-                <button class="copyBtn" data-copy="+55 (19) 99413-5636">Copiar número</button>
-                <a class="btn ghost" id="igGab" target="_blank" rel="noreferrer">Instagram</a>
-              </div>
-            </div>
-          </div>
-
-          <p class="hint">No mobile, o botão flutuante fica sempre disponível pra conversão.</p>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="wrap foot">
-        <div>
-          <div style="display:flex; align-items:center; gap:10px">
-            <div class="logo" aria-hidden="true"></div>
-            <div>
-              <strong>P³ Performance</strong><br />
-              <small>Prevenir. Preparar. Performar.</small>
-            </div>
-          </div>
-          <p class="muted" style="margin:10px 0 0; max-width:65ch">
-            Preparação física para atletas de areia e quadra — avaliação, planejamento, controle de carga e acompanhamento.
-          </p>
-        </div>
-
-        <div class="contactBox">
-          <strong>Fundo agora ficou “colado”</strong>
-          <div class="hint">
-            Se quiser, eu também deixo um modo “premium” com leve animação no degrade (bem sutil).
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <div class="floatingCta">
-      <a class="btn" id="floatingWhats" target="_blank" rel="noreferrer">💬 Chamar no WhatsApp</a>
     </div>
+  </div>
+</header>
 
-    <script>
-      function waLink(phone, text){
-        const msg = encodeURIComponent(text);
-        return `https://wa.me/${phone}?text=${msg}`;
-      }
+<section id="metodo">
+  <div class="wrap">
+    <h2>Método P³</h2>
+    <div class="grid3">
+      <div class="card"><strong>Prevenção</strong><p>Menos lesão, mais constância.</p></div>
+      <div class="card"><strong>Ciência</strong><p>Decisões baseadas em evidência.</p></div>
+      <div class="card"><strong>Performance</strong><p>Evolução contínua e mensurável.</p></div>
+    </div>
+  </div>
+</section>
 
-      const msgBase =
-        "Oi! Vim pelo site da P³ Performance. Quero entender qual plano faz mais sentido pra mim. " +
-        "Minha modalidade é: _____. Meu objetivo é: _____. Tenho histórico de lesão? (sim/não): _____. ";
+<section id="planos">
+  <div class="wrap">
+    <h2>Planos</h2>
+    <div class="grid3">
+      <div class="card"><strong>Online</strong><p>R$ 249,90 / mês</p></div>
+      <div class="card"><strong>Standard</strong><p>R$ 449,90 / mês</p></div>
+      <div class="card"><strong>Premium</strong><p>R$ 809,90 / mês</p></div>
+    </div>
+  </div>
+</section>
 
-      // Links WA / IG
-      const waSofia = document.getElementById("waSofia");
-      const waGab = document.getElementById("waGab");
-      const igSofia = document.getElementById("igSofia");
-      const igGab = document.getElementById("igGab");
+<section id="contato">
+  <div class="wrap">
+    <div class="finalCta">
+      <div>
+        <strong>Quer saber qual plano é ideal?</strong>
+        <p style="margin:6px 0;color:var(--muted)">Fale agora no WhatsApp.</p>
+      </div>
+      <a class="btn" href="https://wa.me/5519997574116" target="_blank">Chamar no WhatsApp</a>
+    </div>
+  </div>
+</section>
 
-      waSofia.href = waLink(BRAND.whatsappSofia, msgBase);
-      waGab.href   = waLink(BRAND.whatsappGabriel, msgBase);
+<div class="float">
+  <a class="btn" href="https://wa.me/5519997574116" target="_blank">💬 WhatsApp</a>
+</div>
 
-      igSofia.href = `https://instagram.com/${BRAND.instaSofia}`;
-      igGab.href   = `https://instagram.com/${BRAND.instaGabriel}`;
-
-      const primaryWa = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase);
-      document.getElementById("ctaWhats").href = primaryWa;
-      document.getElementById("floatingWhats").href = primaryWa;
-
-      document.getElementById("buyOnline").href   = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Consultoria Online.");
-      document.getElementById("buyStandard").href = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Standard (1x/sem presencial).");
-      document.getElementById("buyPremium").href  = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Premium (2x/sem presencial).");
-
-      // Copiar
-      document.querySelectorAll("[data-copy]").forEach(btn=>{
-        btn.addEventListener("click", async ()=>{
-          try{
-            await navigator.clipboard.writeText(btn.getAttribute("data-copy"));
-            const old = btn.textContent;
-            btn.textContent = "Copiado!";
-            setTimeout(()=>btn.textContent = old, 1200);
-          }catch(e){
-            alert("Não consegui copiar automaticamente. Selecione e copie manualmente.");
-          }
-        });
-      });
-
-      // Hero image (opcional)
-      if (BRAND.heroImageUrl && BRAND.heroImageUrl.trim().length > 6){
-        const hv = document.getElementById("heroVisual");
-        hv.style.setProperty("--hero-img", `url('${BRAND.heroImageUrl}')`);
-      }
-
-      // Mobile menu
-      const menuBtn = document.getElementById("menuBtn");
-      const overlay = document.getElementById("mOverlay");
-      const drawer = document.getElementById("mDrawer");
-
-      function openMenu(){
-        document.documentElement.classList.add("mOpen");
-        document.body.style.overflow = "hidden";
-        menuBtn.setAttribute("aria-expanded", "true");
-        menuBtn.textContent = "✕";
-        drawer.setAttribute("aria-hidden", "false");
-      }
-      function closeMenu(){
-        document.documentElement.classList.remove("mOpen");
-        document.body.style.overflow = "";
-        menuBtn.setAttribute("aria-expanded", "false");
-        menuBtn.textContent = "☰";
-        drawer.setAttribute("aria-hidden", "true");
-      }
-
-      if (menuBtn && overlay && drawer){
-        menuBtn.addEventListener("click", ()=>{
-          const isOpen = document.documentElement.classList.contains("mOpen");
-          isOpen ? closeMenu() : openMenu();
-        });
-        overlay.addEventListener("click", closeMenu);
-        drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-        document.addEventListener("keydown", (e)=>{ if (e.key === "Escape") closeMenu(); });
-      }
-
-      // Accordions (mobile)
-      function setupAcc(){
-        document.querySelectorAll("[data-acc]").forEach(acc=>{
-          const btn = acc.querySelector("[data-acc-btn]");
-          const panel = acc.querySelector("[data-acc-panel]");
-          const icon = acc.querySelector("[data-acc-icon]");
-          if (!btn || !panel) return;
-
-          const close = ()=>{
-            btn.setAttribute("aria-expanded", "false");
-            panel.style.maxHeight = "0px";
-            if (icon) icon.textContent = "+";
-          };
-          const open = ()=>{
-            btn.setAttribute("aria-expanded", "true");
-            panel.style.maxHeight = panel.scrollHeight + "px";
-            if (icon) icon.textContent = "–";
-          };
-          close();
-
-          btn.addEventListener("click", ()=>{
-            const expanded = btn.getAttribute("aria-expanded") === "true";
-            expanded ? close() : open();
-          });
-
-          window.addEventListener("resize", ()=>{
-            if (window.matchMedia("(min-width: 861px)").matches){
-              panel.style.maxHeight = "none";
-              if (icon) icon.textContent = "–";
-            } else {
-              const expanded = btn.getAttribute("aria-expanded") === "true";
-              panel.style.maxHeight = expanded ? (panel.scrollHeight + "px") : "0px";
-              if (icon) icon.textContent = expanded ? "–" : "+";
-            }
-          });
-        });
-      }
-      setupAcc();
-    </script>
-  </body>
+</body>
 </html>
