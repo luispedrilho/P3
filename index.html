@@ -57,7 +57,9 @@
       align-items:center;
       justify-content:space-between;
       padding:14px 0;
+      gap:14px;
     }
+
     .brand{
       display:flex;
       gap:10px;
@@ -65,14 +67,24 @@
       font-weight:900;
       letter-spacing:.12em;
       font-size:14px;
+      white-space:nowrap;
     }
-    .logo{
+
+    /* ✅ LOGO REAL */
+    .brandLogo{
       width:36px;
       height:36px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--brand),rgba(255,255,255,.1));
+      border-radius:10px;
+      object-fit:contain;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      padding:6px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.25);
+      flex:0 0 auto;
+      display:block;
     }
-    .links{display:flex;gap:14px}
+
+    .links{display:flex;gap:14px; align-items:center}
     .links a{font-size:13px;color:var(--muted)}
 
     .btn{
@@ -82,6 +94,8 @@
       color:#07110a;
       font-weight:900;
       box-shadow:0 12px 30px rgba(57,211,83,.25);
+      display:inline-block;
+      white-space:nowrap;
     }
 
     /* HERO */
@@ -95,6 +109,7 @@
     }
     @media(max-width:900px){
       .heroGrid{grid-template-columns:1fr}
+      .links{gap:10px}
     }
 
     .heroText{
@@ -177,6 +192,7 @@
       justify-content:space-between;
       gap:14px;
       flex-wrap:wrap;
+      align-items:center;
     }
 
     /* FLOAT CTA */
@@ -190,6 +206,7 @@
     }
     @media(max-width:860px){
       .float{display:block}
+      .float .btn{width:100%; text-align:center;}
     }
   </style>
 </head>
@@ -199,9 +216,11 @@
 <div class="nav">
   <div class="wrap navin">
     <div class="brand">
-      <div class="logo"></div>
+      <!-- ✅ LOGO REAL -->
+      <img class="brandLogo" src="p3logo.png" alt="Logo P³ Performance" />
       P³ PERFORMANCE
     </div>
+
     <div class="links">
       <a href="#metodo">Método</a>
       <a href="#planos">Planos</a>
