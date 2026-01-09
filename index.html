@@ -8,16 +8,14 @@
       name="description"
       content="Preparação física baseada em evidência: avaliação, planejamento, controle de carga e acompanhamento para atletas de areia e quadra."
     />
+
     <style>
       :root{
-        --bg: #0b0c10;
         --text: rgba(255,255,255,.92);
         --muted: rgba(255,255,255,.72);
         --line: rgba(255,255,255,.12);
 
         --card: rgba(255,255,255,.06);
-        --card2: rgba(255,255,255,.08);
-
         --brand: #39d353;
         --brand2:#22c55e;
 
@@ -31,14 +29,43 @@
 
       *{box-sizing:border-box}
       html,body{height:100%}
+
       body{
         margin:0;
         font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
         color: var(--text);
+        background: #07080b; /* fallback sólido */
+        overflow-x: hidden;
+      }
+
+      /* ✅ Fundo novo: contínuo, sem "faixas" visíveis */
+      body::before{
+        content:"";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
         background:
-          radial-gradient(900px 500px at 20% 10%, rgba(57,211,83,.18), transparent 60%),
-          radial-gradient(700px 420px at 80% 10%, rgba(34,197,94,.12), transparent 55%),
-          linear-gradient(180deg, #07080b 0%, var(--bg) 35%, #07080b 100%);
+          /* base contínua (sem corte) */
+          radial-gradient(1400px 900px at 50% -10%, rgba(255,255,255,.06), transparent 65%),
+          linear-gradient(180deg, #07080b 0%, #0a0c10 35%, #07080b 100%),
+
+          /* blobs grandes (bem suaves) */
+          radial-gradient(1200px 900px at 18% 12%, rgba(57,211,83,.16), transparent 62%),
+          radial-gradient(1100px 850px at 84% 8%, rgba(34,197,94,.12), transparent 60%),
+          radial-gradient(900px 700px at 60% 78%, rgba(57,211,83,.10), transparent 62%);
+      }
+
+      /* ✅ Noise leve pra “colar” o degrade */
+      body::after{
+        content:"";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events:none;
+        opacity: .10;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+        background-size: 220px 220px;
+        mix-blend-mode: overlay;
       }
 
       a{color:inherit}
@@ -49,15 +76,13 @@
       .nav{
         position:sticky; top:0; z-index:60;
         backdrop-filter: blur(10px);
-        background: rgba(7,8,11,.55);
-        border-bottom: 1px solid var(--line);
+        background: rgba(10,12,16,.55);
+        border-bottom: 1px solid rgba(255,255,255,.10);
       }
       .navin{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0}
       @media (min-width: 860px){ .navin{ padding: 14px 0; } }
 
-      .brand{
-        display:flex; align-items:center; gap:10px; min-width: 210px;
-      }
+      .brand{display:flex; align-items:center; gap:10px; min-width: 210px;}
       .logo{
         width:38px; height:38px; border-radius:12px;
         background: linear-gradient(135deg, rgba(57,211,83,.92), rgba(255,255,255,.08));
@@ -66,9 +91,7 @@
       .brand h1{font-size:14px; margin:0; letter-spacing:.08em; text-transform:uppercase}
       .brand small{display:block; color:var(--muted); font-size:12px; letter-spacing:.02em}
 
-      .links{
-        display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
-      }
+      .links{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
       .links a{
         text-decoration:none; color: var(--muted);
         font-size:13px; padding:8px 10px; border-radius:12px;
@@ -81,7 +104,7 @@
         padding:12px 14px; border-radius: 14px;
         background: linear-gradient(135deg, var(--brand), var(--brand2));
         color:#07110a; font-weight:900; letter-spacing:.02em;
-        box-shadow: 0 10px 25px rgba(57,211,83,.25);
+        box-shadow: 0 10px 25px rgba(57,211,83,.22);
         transition: transform .12s ease, filter .12s ease;
         white-space: nowrap;
       }
@@ -95,7 +118,7 @@
         font-weight:800;
       }
 
-      /* Mobile menu (overlay + animação) */
+      /* Mobile menu */
       .desktopLinks{ display:flex; }
       .menuBtn{
         display:none;
@@ -108,7 +131,6 @@
         cursor:pointer;
         -webkit-tap-highlight-color: transparent;
       }
-
       .mOverlay{
         position:fixed; inset:0;
         background: rgba(0,0,0,.55);
@@ -116,7 +138,6 @@
         display:none;
         z-index: 80;
       }
-
       .mDrawer{
         position:fixed;
         left:12px; right:12px; top: calc(var(--navH) + 10px);
@@ -137,7 +158,6 @@
         color: var(--muted);
         padding: 12px 12px;
         border-radius: 14px;
-        -webkit-tap-highlight-color: transparent;
       }
       .mDrawer a:hover{ color: var(--text); background: rgba(255,255,255,.06); }
       .mDrawer a.btn{ margin-top: 8px; }
@@ -148,7 +168,6 @@
         opacity: 1;
         pointer-events:auto;
       }
-
       @media (max-width: 860px){
         .desktopLinks{ display:none; }
         .menuBtn{ display:inline-flex; align-items:center; justify-content:center; }
@@ -171,8 +190,10 @@
         padding: 20px;
         overflow:hidden;
         position:relative;
+
+        /* ✅ agora o card segue o fundo (menos contraste duro) */
         background:
-          radial-gradient(750px 420px at 12% 18%, rgba(57,211,83,.22), transparent 60%),
+          radial-gradient(800px 500px at 12% 12%, rgba(57,211,83,.16), transparent 60%),
           linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
       }
       @media (min-width: 980px){ .heroCard{ padding: 28px; } }
@@ -211,7 +232,6 @@
         font-size: 13px;
       }
 
-      /* Hero image card (placeholder) */
       .heroVisual{
         border-radius: var(--radius2);
         border:1px solid rgba(255,255,255,.12);
@@ -220,14 +240,12 @@
         position:relative;
         min-height: 260px;
         background:
-          radial-gradient(700px 420px at 20% 10%, rgba(57,211,83,.18), transparent 55%),
+          radial-gradient(800px 520px at 20% 10%, rgba(57,211,83,.14), transparent 60%),
           linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.25));
       }
       .heroVisual::before{
         content:"";
         position:absolute; inset:0;
-        /* ✅ Coloque sua imagem aqui (areia/quadra). Ex:
-           background-image: url('https://.../sua-foto.jpg'); */
         background-image: var(--hero-img, none);
         background-size: cover;
         background-position: center;
@@ -236,8 +254,7 @@
       .heroVisual::after{
         content:"";
         position:absolute; inset:0;
-        background:
-          linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.55));
+        background: linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.58));
       }
       .heroVisualInner{
         position:absolute; inset:0;
@@ -286,13 +303,12 @@
         .secHead{ flex-direction: column; align-items:flex-start; gap: 8px; }
       }
 
-      /* Grids responsivos */
       .grid3{display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:14px}
       .grid2{display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:14px}
 
       .card{
         border-radius: var(--radius);
-        background: var(--card);
+        background: rgba(255,255,255,.05);
         border:1px solid rgba(255,255,255,.12);
         padding:16px;
       }
@@ -312,24 +328,18 @@
       .anchor{scroll-margin-top: 92px}
       .muted{color: var(--muted)}
 
-      /* Prova social */
       .quote{
         border-radius: var(--radius2);
         background:
-          radial-gradient(700px 320px at 15% 0%, rgba(57,211,83,.14), transparent 60%),
-          rgba(255,255,255,.06);
+          radial-gradient(900px 420px at 10% 0%, rgba(57,211,83,.12), transparent 65%),
+          rgba(255,255,255,.05);
         border: 1px solid rgba(255,255,255,.12);
         padding: 16px;
       }
-      .quote p{
-        margin: 0 0 10px;
-        color: rgba(255,255,255,.85);
-        line-height: 1.55;
-        font-size: 14px;
-      }
+      .quote p{margin: 0 0 10px; color: rgba(255,255,255,.85); line-height: 1.55; font-size: 14px;}
       .quote small{ color: var(--muted); }
 
-      /* Accordion (mobile) */
+      /* Accordion */
       .acc{
         border-radius: var(--radius2);
         background: rgba(255,255,255,.05);
@@ -365,14 +375,13 @@
       }
       .accInner{ padding: 14px; }
 
-      /* Desktop: accordions ficam "abertos" naturalmente */
       @media (min-width: 861px){
         .accBtn{ display:none; }
         .accPanel{ max-height: none !important; border-top:0; }
         .accInner{ padding:0; }
       }
 
-      /* PRICING */
+      /* Pricing */
       .pricing{display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px}
       .priceCard{
         border-radius: var(--radius2);
@@ -386,7 +395,7 @@
       .priceCard.featured{
         border-color: rgba(57,211,83,.45);
         background:
-          radial-gradient(650px 320px at 20% 0%, rgba(57,211,83,.20), transparent 55%),
+          radial-gradient(650px 320px at 20% 0%, rgba(57,211,83,.18), transparent 55%),
           linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
       }
       .badge{
@@ -403,25 +412,14 @@
       .per{font-size: 14px; color: var(--muted); font-weight:700}
       .ul{margin:0; padding:0; list-style:none; display:grid; gap:10px}
       .ul li{color: var(--muted); font-size: 13.5px; line-height:1.4; display:flex; gap:10px}
-      .ideal{
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(255,255,255,.10);
-        color: rgba(255,255,255,.78);
-        font-size: 13px;
-        line-height: 1.45;
-      }
-
+      .ideal{margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.10); color: rgba(255,255,255,.78); font-size: 13px; line-height: 1.45;}
       @media (max-width: 520px){
         .price{ font-size: 30px; }
         .priceCard .btn{ width:100%; }
       }
 
-      /* Contato / Footer */
-      footer{padding: 34px 0 90px; border-top:1px solid var(--line); margin-top: 10px}
-      .foot{
-        display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;
-      }
+      footer{padding: 34px 0 90px; border-top:1px solid rgba(255,255,255,.10); margin-top: 10px}
+      .foot{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; flex-wrap:wrap;}
       .contactBox{
         border-radius: var(--radius2);
         background: rgba(255,255,255,.05);
@@ -437,7 +435,6 @@
         background: transparent;
         color: var(--text);
         cursor:pointer;
-        -webkit-tap-highlight-color: transparent;
       }
       .copyBtn:hover{background: rgba(255,255,255,.06)}
       .hint{font-size: 12px; color: rgba(255,255,255,.55); margin-top: 8px}
@@ -446,7 +443,6 @@
         .contactRow a, .contactRow button{ width:100%; flex: 1 1 100%; }
       }
 
-      /* CTA flutuante no mobile */
       .floatingCta{
         position: fixed;
         left: 12px; right: 12px; bottom: 12px;
@@ -457,13 +453,9 @@
         width:100%;
         border-radius: 18px;
         padding: 14px 16px;
-        box-shadow: 0 18px 40px rgba(57,211,83,.22);
+        box-shadow: 0 18px 40px rgba(57,211,83,.20);
       }
-      @media (max-width: 860px){
-        .floatingCta{ display:block; }
-      }
-
-      /* Safe area */
+      @media (max-width: 860px){ .floatingCta{ display:block; } }
       @supports(padding: max(0px)){
         .floatingCta{ bottom: max(12px, env(safe-area-inset-bottom)); }
       }
@@ -471,26 +463,14 @@
   </head>
 
   <body>
-    <!-- CONFIGURAÇÃO RÁPIDA -->
     <script>
-      // Ajuste aqui se precisar:
       const BRAND = {
-        name: "P³ Performance",
-        tagline: "Prevenir. Preparar. Performar.",
-        city: "Campinas e região",
-
-        // CTA principal (vai para Sofia por padrão)
         whatsappPrimary: "5519997574116",
-
         whatsappSofia: "5519997574116",
         whatsappGabriel: "5519994135636",
-
         instaSofia: "sofia_smaia",
         instaGabriel: "gabriell.ef",
-
-        // (Opcional) hero image:
-        // heroImageUrl: "https://SEU-LINK-AQUI/foto.jpg"
-        heroImageUrl: ""
+        heroImageUrl: "" // opcional
       };
     </script>
 
@@ -516,7 +496,6 @@
       </div>
     </div>
 
-    <!-- Mobile menu overlay/drawer -->
     <div class="mOverlay" id="mOverlay"></div>
     <div class="mDrawer" id="mDrawer" aria-hidden="true">
       <a href="#metodo">Metodologia</a>
@@ -598,34 +577,6 @@
         </div>
       </section>
 
-      <section id="sobre" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Sobre a equipe</h3>
-              <p>Preparadores físicos com atuação em esportes de areia e quadra, com experiência em equipes e mentoria.</p>
-            </div>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <strong>Gabriel Fornazieri</strong>
-              <p class="muted">
-                Formado em Educação Física (PUC Campinas). Pós-graduando em Preparação Física (UNIGUAÇU).
-                Preparador físico (beach tennis juvenil), atletas amadores de futevôlei e professor/atleta.
-              </p>
-            </div>
-            <div class="card">
-              <strong>Sofia Maia</strong>
-              <p class="muted">
-                Educação Física (PUC Campinas). Experiência em preparação física no tênis, mentoria (CBT)
-                e coordenação de professores em escola de futebol.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="servicos" class="anchor">
         <div class="wrap">
           <div class="secHead">
@@ -655,7 +606,6 @@
         </div>
       </section>
 
-      <!-- ACCORDION: Avaliações -->
       <section id="avaliacoes" class="anchor">
         <div class="wrap">
           <div class="secHead">
@@ -693,97 +643,6 @@
         </div>
       </section>
 
-      <!-- ACCORDION: Planejamento -->
-      <section id="planejamento" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Planejamento e controle</h3>
-              <p>Periodização tradicional e ondulatória — transição inteligente conforme a temporada e o atleta.</p>
-            </div>
-          </div>
-
-          <div class="acc" data-acc>
-            <button class="accBtn" type="button" data-acc-btn aria-expanded="false">
-              <div>
-                Entender como funciona (periodização + carga)
-                <div><span>Toque para abrir/fechar</span></div>
-              </div>
-              <div class="accIcon" data-acc-icon>+</div>
-            </button>
-
-            <div class="accPanel" data-acc-panel>
-              <div class="accInner">
-                <div class="grid2">
-                  <div class="card">
-                    <strong>Periodização</strong>
-                    <p>
-                      <b>Pré-temporada:</b> base com modelo tradicional (linear) para construir capacidade.<br/>
-                      <b>Temporada/competição:</b> transição para modelo ondulatório (variação de estímulos).<br/>
-                      <b>Personalização:</b> ajustes constantes conforme necessidade individual.
-                    </p>
-                  </div>
-                  <div class="card">
-                    <strong>Controle de carga</strong>
-                    <p>
-                      Monitoramos variáveis internas com escalas simples:
-                      <b>PSR</b> (recuperação 0–10), <b>sono & estresse</b> e <b>PSE</b> (Borg 0–10),
-                      para adaptar o treino do dia e manter segurança + performance.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- PROVA SOCIAL (antes dos Planos) -->
-      <section id="provasocial" class="anchor">
-        <div class="wrap">
-          <div class="secHead">
-            <div>
-              <h3>Resultados e prova social</h3>
-              <p>Exemplos de perfis atendidos + depoimentos (edite com o texto real quando tiver).</p>
-            </div>
-          </div>
-
-          <div class="grid2">
-            <div class="card">
-              <strong>Atletas e casos</strong>
-              <p>
-                • Lavínia Villaboim — tênis federada (COSAT), 13 anos<br/>
-                • Felipe Fogace — beach tennis federado (nível B), 15 anos<br/>
-                • Nicolas Mendes — futevôlei (regionais, iniciante), 25 anos<br/>
-                • Matheus Bernardes — futevôlei (regionais, iniciante), 25 anos
-              </p>
-              <div class="divider"></div>
-              <p class="muted" style="margin-top:10px">
-                A lógica é simples: consistência + progressão + controle de carga = evolução com menos interrupções.
-              </p>
-            </div>
-
-            <div class="grid2">
-              <div class="quote">
-                <p>
-                  “Eu tinha oscilação no rendimento e vivia com dorzinha chata. Com o planejamento e o controle de carga,
-                  comecei a treinar melhor e jogar com mais confiança.”
-                </p>
-                <small>— Atleta (exemplo), Beach Tennis</small>
-              </div>
-              <div class="quote">
-                <p>
-                  “A avaliação mostrou exatamente onde eu estava perdendo performance. O plano foi direto ao ponto e
-                  a evolução ficou clara nas reavaliações.”
-                </p>
-                <small>— Atleta (exemplo), Tênis</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section id="planos" class="anchor">
         <div class="wrap">
           <div class="secHead">
@@ -798,9 +657,9 @@
               <div class="priceTop"><h4>Consultoria Online</h4></div>
               <div class="price">R$ 249,90 <span class="per">/mês</span></div>
               <ul class="ul">
-                <li><span class="check">✓</span> Avaliação completa inicial + a cada 6 meses</li>
-                <li><span class="check">✓</span> Planejamento individualizado</li>
-                <li><span class="check">✓</span> Suporte online</li>
+                <li>✓ Avaliação completa inicial + a cada 6 meses</li>
+                <li>✓ Planejamento individualizado</li>
+                <li>✓ Suporte online</li>
               </ul>
               <div class="ideal"><b>Ideal para:</b> quem quer seguir com autonomia e ter um plano bem estruturado.</div>
               <div style="margin-top:14px">
@@ -813,9 +672,9 @@
               <div class="priceTop"><h4>Plano Standard</h4></div>
               <div class="price">R$ 449,90 <span class="per">/mês</span></div>
               <ul class="ul">
-                <li><span class="check">✓</span> 1x por semana presencial</li>
-                <li><span class="check">✓</span> Avaliação + controle de carga</li>
-                <li><span class="check">✓</span> Execução correta + ajustes constantes</li>
+                <li>✓ 1x por semana presencial</li>
+                <li>✓ Avaliação + controle de carga</li>
+                <li>✓ Execução correta + ajustes constantes</li>
               </ul>
               <div class="ideal"><b>Ideal para:</b> quem quer acompanhamento e consistência com execução impecável.</div>
               <div style="margin-top:14px">
@@ -827,9 +686,9 @@
               <div class="priceTop"><h4>Plano Premium</h4></div>
               <div class="price">R$ 809,90 <span class="per">/mês</span></div>
               <ul class="ul">
-                <li><span class="check">✓</span> 2x por semana presencial</li>
-                <li><span class="check">✓</span> Avaliação + controle de carga</li>
-                <li><span class="check">✓</span> Acompanhamento mais próximo</li>
+                <li>✓ 2x por semana presencial</li>
+                <li>✓ Avaliação + controle de carga</li>
+                <li>✓ Acompanhamento mais próximo</li>
               </ul>
               <div class="ideal"><b>Ideal para:</b> quem compete/treina forte e precisa de ajustes rápidos na semana.</div>
               <div style="margin-top:14px">
@@ -837,8 +696,6 @@
               </div>
             </div>
           </div>
-
-          <p class="hint" style="margin-top:10px">* Para outros tipos de plano, entre em contato.</p>
         </div>
       </section>
 
@@ -846,8 +703,8 @@
         <div class="wrap">
           <div class="secHead">
             <div>
-              <h3>Se interessou? Chame a gente.</h3>
-              <p>Atendimento rápido no WhatsApp — já com mensagem pronta pra facilitar.</p>
+              <h3>Contato</h3>
+              <p>Atendimento rápido no WhatsApp — já com mensagem pronta.</p>
             </div>
           </div>
 
@@ -873,7 +730,7 @@
             </div>
           </div>
 
-          <p class="hint">Dica: no celular, o botão flutuante de WhatsApp sempre fica disponível pra facilitar a conversão.</p>
+          <p class="hint">No mobile, o botão flutuante fica sempre disponível pra conversão.</p>
         </div>
       </section>
     </main>
@@ -894,16 +751,14 @@
         </div>
 
         <div class="contactBox">
-          <strong>Próximo passo “uau”</strong>
+          <strong>Fundo agora ficou “colado”</strong>
           <div class="hint">
-            Suba 1 foto (areia/quadra) e cole o link em <b>heroImageUrl</b>.
-            Também dá pra trocar o “logo” por uma imagem real.
+            Se quiser, eu também deixo um modo “premium” com leve animação no degrade (bem sutil).
           </div>
         </div>
       </div>
     </footer>
 
-    <!-- CTA flutuante -->
     <div class="floatingCta">
       <a class="btn" id="floatingWhats" target="_blank" rel="noreferrer">💬 Chamar no WhatsApp</a>
     </div>
@@ -930,17 +785,15 @@
       igSofia.href = `https://instagram.com/${BRAND.instaSofia}`;
       igGab.href   = `https://instagram.com/${BRAND.instaGabriel}`;
 
-      // CTA principal + flutuante (vai para o primary)
       const primaryWa = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase);
       document.getElementById("ctaWhats").href = primaryWa;
       document.getElementById("floatingWhats").href = primaryWa;
 
-      // Botões de compra (também primary)
       document.getElementById("buyOnline").href   = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Consultoria Online.");
       document.getElementById("buyStandard").href = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Standard (1x/sem presencial).");
       document.getElementById("buyPremium").href  = waLink(BRAND.whatsappPrimary || BRAND.whatsappSofia, msgBase + "Tenho interesse no plano: Premium (2x/sem presencial).");
 
-      // Copiar número
+      // Copiar
       document.querySelectorAll("[data-copy]").forEach(btn=>{
         btn.addEventListener("click", async ()=>{
           try{
@@ -960,7 +813,7 @@
         hv.style.setProperty("--hero-img", `url('${BRAND.heroImageUrl}')`);
       }
 
-      // Mobile menu overlay/drawer
+      // Mobile menu
       const menuBtn = document.getElementById("menuBtn");
       const overlay = document.getElementById("mOverlay");
       const drawer = document.getElementById("mDrawer");
@@ -987,14 +840,10 @@
         });
         overlay.addEventListener("click", closeMenu);
         drawer.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
-
-        // ESC
-        document.addEventListener("keydown", (e)=>{
-          if (e.key === "Escape") closeMenu();
-        });
+        document.addEventListener("keydown", (e)=>{ if (e.key === "Escape") closeMenu(); });
       }
 
-      // Accordions (mobile only)
+      // Accordions (mobile)
       function setupAcc(){
         document.querySelectorAll("[data-acc]").forEach(acc=>{
           const btn = acc.querySelector("[data-acc-btn]");
@@ -1007,14 +856,11 @@
             panel.style.maxHeight = "0px";
             if (icon) icon.textContent = "+";
           };
-
           const open = ()=>{
             btn.setAttribute("aria-expanded", "true");
             panel.style.maxHeight = panel.scrollHeight + "px";
             if (icon) icon.textContent = "–";
           };
-
-          // default: fechado no mobile, aberto no desktop (CSS resolve)
           close();
 
           btn.addEventListener("click", ()=>{
@@ -1022,13 +868,11 @@
             expanded ? close() : open();
           });
 
-          // Recalcular altura ao rotacionar/trocar tamanho
           window.addEventListener("resize", ()=>{
             if (window.matchMedia("(min-width: 861px)").matches){
               panel.style.maxHeight = "none";
               if (icon) icon.textContent = "–";
             } else {
-              // se estiver aberto, recalcula; se fechado, mantém
               const expanded = btn.getAttribute("aria-expanded") === "true";
               panel.style.maxHeight = expanded ? (panel.scrollHeight + "px") : "0px";
               if (icon) icon.textContent = expanded ? "–" : "+";
